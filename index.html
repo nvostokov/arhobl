@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Map with GeoJSON Layer Control and Search</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 600px;
+    }
+    .leaflet-control-attribution a svg {
+      width: 0;
+      height: 0;
+    }
+  </style>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-search/dist/leaflet-search.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-search/dist/leaflet-search.min.css" />
+  <script src="geo.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+  <input type="checkbox" id="layer1" checked><label for="layer1">03-ос 2024<br></label>
+  <input type="checkbox" id="layer2" checked><label for="layer2">04-ос 2024<br></label>
+  <input type="checkbox" id="layer3" checked><label for="layer3">05-ос 2024<br></label>
+  <input type="checkbox" id="layer4" checked><label for="layer4">07-ос 2024<br></label>
+  <input type="checkbox" id="layer5" checked><label for="layer5">08-ос 2024<br></label>
+  <div>
+    Поиск работает только по первому слову в названии дороги, например, Вельск - Шангалы. Вводим "Вельск" и выпадут все варианты.
+  </div>
+  <script>
+    var map = L.map('map').setView([63.5393, 40.5168], 6); // Архангельская область
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+    }).addTo(map);
+
+
+    var layer1 = L.geoJson(geojsonLayer1, {
+      style: { color: 'red', weight: 3.5 },
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+
+    var layer2 = L.geoJson(geojsonLayer2, {
+      style: { color: 'green', weight: 3.5 },
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+
+    var layer3 = L.geoJson(geojsonLayer3, {
+      style: { color: 'black', weight: 3.5 },
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+
+    var layer4 = L.geoJson(geojsonLayer4, {
+      style: { color: 'blue', weight: 3.5 },
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+
+    var layer5 = L.geoJson(geojsonLayer5, {
+      style: { color: 'purple', weight: 3.5 },
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+
+
+    layer1.addTo(map);
+    layer2.addTo(map);
+    layer3.addTo(map);
+    layer4.addTo(map);
+    layer5.addTo(map);
+
+    document.getElementById('layer1').addEventListener('change', function() {
+      if (this.checked) {
+        layer1.addTo(map);
+      } else {
+        map.removeLayer(layer1);
+      }
+    });
+
+    document.getElementById('layer2').addEventListener('change', function() {
+      if (this.checked) {
+        layer2.addTo(map);
+      } else {
+        map.removeLayer(layer2);
+      }
+    });
+
+    document.getElementById('layer3').addEventListener('change', function() {
+      if (this.checked) {
+        layer3.addTo(map);
+      } else {
+        map.removeLayer(layer3);
+      }
+    });
+
+    document.getElementById('layer4').addEventListener('change', function() {
+      if (this.checked) {
+        layer4.addTo(map);
+      } else {
+        map.removeLayer(layer4);
+      }
+    });
+    document.getElementById('layer5').addEventListener('change', function() {
+      if (this.checked) {
+        layer5.addTo(map);
+      } else {
+        map.removeLayer(layer5);
+      }
+    });
+
+    var searchControl = new L.Control.Search({
+      layer: L.layerGroup([layer1, layer2, layer3, layer4, layer5]),
+    
+      propertyName: 'name',
+      marker: false,
+      moveToLocation: function(latlng, title, map) {
+        map.fitBounds(latlng.layer.getBounds());
+        latlng.layer.openPopup();
+      }
+    });
+
+    searchControl.on('search:locationfound', function(e) {
+		
+		//console.log('search:locationfound', );
+
+		//map.removeLayer(this._markerSearch)
+
+		e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+		if(e.layer._popup)
+			e.layer.openPopup();
+
+	}).on('search:collapsed', function(e) {
+
+		layer1.eachLayer(function(layer) {	//restore feature color
+			layer1.resetStyle(layer);
+		});	
+	});
+
+    map.addControl(searchControl);
+
+
+//
+
+
+
+	
+
+
+
+
+  </script>
+</body>
+</html>
