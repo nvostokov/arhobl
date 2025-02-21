@@ -1,0 +1,369 @@
+@charset "UTF-8";
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*--------------------*/
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
+body {
+    font-family: Montserrat;
+    color: #252B42;
+    font-size: 14px;
+    font-weight: 500;
+    /*min-width: 375px;*/
+    /*background-color: #FAFAFA;*/
+  }
+  
+.wrapper {
+min-height: 100%;
+overflow: hidden;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+    -ms-flex-direction: column;
+        flex-direction: column;
+position: relative;
+}
+
+._container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 15px;
+}
+
+.header {
+width: 100%;
+background-color: rgba(250, 250, 250, 0.9);
+-webkit-box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+        box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+}
+
+.header__container {
+position: relative;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+min-height: 54px;
+align-items: center;
+justify-content: center;
+}
+
+.header__logo img {
+width: 170px;
+}
+#map {
+  height: 1080px;
+  box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.17);
+}
+.leaflet-control-attribution a svg {
+  width: 0;
+  height: 0;
+}
+
+.map__legend {
+  position: absolute;
+  top: 380px;
+  left: 20px;
+  z-index: 500;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px 20px;
+  border-radius: 3px;
+  color: #3d5c99;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+}
+.map__legend div {
+  padding-bottom: 5px;
+}
+.map__legend label {
+  padding-left: 5px;
+}
+.map__title {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px 20px;
+  border-radius: 3px;
+  line-height: 110%;
+  position: absolute;
+  top: 550px;
+  z-index: 500;
+  left: 20px;
+  text-align: left;
+  font-size: 12px;
+  max-width: 300px;
+  color: #3d5c99;
+  font-weight: 700;
+  box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+}
+.footer {
+    height: 50px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background-color: #3D5C99;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.footer__container {
+font-size: 15px;
+font-weight: 600;
+color: #fff;
+text-align: center;
+}
+
+.footer__container img {
+margin-left: 20px;
+width: 20px;
+}
+
+
+
+
+.page {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+}
+
+
+img {
+    border: none;
+}
+
+
+/*  */
+input[type="checkbox"] {
+  cursor: pointer;
+  top: 7px;
+  margin-right: 8px;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.red:checked {
+  background-color: red; 
+  border-color: red;
+}
+.green:checked {
+  background-color: green; 
+  border-color: green;
+}
+.blue:checked {
+  background-color: blue; 
+  border-color: blue;
+}
+.black:checked {
+  background-color: black; 
+  border-color: black;
+}
+.purple:checked {
+  background-color: purple; 
+  border-color: purple;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 1px;  /* Поднять на 1 пиксель */
+  left: 5px; /* Сдвинуть влево на 1 пиксель */
+  width: 5px; /* Увеличить ширину линии */
+  height: 10px; /* Увеличить высоту линии */
+  border: solid white;
+  border-width: 0 3px 3px 0; /* Увеличить толщину линии */
+  transform: rotate(45deg);
+}
+
+input[type="checkbox"]:hover {
+  border-color: #888;
+}
+.map__legend div label:hover {
+cursor: pointer;
+text-decoration: underline;
+}
+
+/*  */
+
+@media (max-width: 2200px) {
+  #map {
+    height: 700px;
+    box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+  }
+}
+@media (max-width: 1200px) {
+  #map {
+    height: 600px;
+  }
+  .map__legend {
+    top: 300px;
+    left: 20px;
+    padding: 5px 10px;
+    font-weight: 600;
+    font-size: 11px;
+}
+  .map__legend div {
+    padding-bottom: 5px;
+  }
+  .map__legend label {
+    padding-left: 5px;
+  }
+  .map__title {
+    padding: 5px 10px;
+    top: 460px;
+    font-size: 10px;
+    max-width: 200px;
+    box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+  }
+}
+
+@media (max-width: 767px) {
+  #map {
+    height: 450px;
+  }
+  input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    top: 4px;
+    margin-right: 3px;
+  }
+  input[type="checkbox"]:checked::after {
+    top: 0px;  /* Поднять на 1 пиксель */
+    left: 3px; /* Сдвинуть влево на 1 пиксель */
+    width: 5px; /* Увеличить ширину линии */
+    height: 9px; /* Увеличить высоту линии */
+    border-width: 0 2px 2px 0; /* Увеличить толщину линии */
+    transform: rotate(45deg);
+  }
+
+  .map__legend {
+    top: 320px;
+    left: 10px;
+    padding: 5px 10px;
+    font-weight: 600;
+    font-size: 11px;
+}
+  .map__legend div {
+    padding-bottom: 5px;
+  }
+  .map__legend label {
+    padding-left: 5px;
+  }
+  .map__title {
+    padding: 5px 10px;
+    top: 460px;
+    font-size: 10px;
+    left: 10px;
+    max-width: 200px;
+    box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+  }
+
+}
+
+@media (max-width: 479px) {
+.footer {
+    height: 50px;
+}
+.footer__container {
+    font-size: 12px;
+}
+.map__title {
+  left: 10px;
+  padding: 3px 8px;
+  top: 580px;
+  font-size: 8px;
+  max-width: 150px;
+}
+.map__legend {
+  top: 460px;
+  left: 10px;
+  padding: 3px 8px;
+  font-weight: 600;
+  font-size: 10px;
+}
+}
