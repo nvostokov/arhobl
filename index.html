@@ -1,161 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Leaflet Map with GeoJSON Layer Control and Search</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    #map {
-      height: 600px;
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=170724">
+    <link rel="stylesheet" href="https://nvostokov.github.io/popupmap/style.css?v=0219251052"/>
+    <title>Карта дорог</title>
+    <style>
+        #controls { margin: 10px; }
+        #search-container { margin: 15px; position: absolute; top: 0; left: 3%; z-index: 1000; box-shadow:0 13px 19px rgba(0,0,0,.1)}
+        #search-results {
+            margin-top: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            position: absolute;
+            width: 100%;
+            font-weight: 700;
+			border-radius: 2px;
+			box-shadow:0 13px 19px rgba(0,0,0,.1);
+        }
+        #search-results div {
+			border-bottom: 0.1px solid rgba(61,92,153,.4);
+            padding: 10px;
+            cursor: pointer;
+			transition: all 0.1s ease;
+        }
+        #search-results div:hover {
+            background-color: #f1f1f1;
+        }
+        #search-container input {
+            border: 2px solid rgba(61, 92, 153, 0.6);
+			border-radius: 2px;
+            width: 280px;
+			padding-left: 5px;
+			transition: all 0.1s;
+        }
+		#search-container input:hover {
+            border: 2.5px solid rgba(61, 92, 153, 0.8);
+        }
+        @media (max-width:992px){
+	#search-container { margin: 8px; position: absolute; top: 3px; left: 8%; z-index: 1000; box-shadow:0 13px 19px rgba(0,0,0,.1)}
+    #search-container input {
+            width: 200px;
+        }
+    .button-map {
+        display:none
     }
-    .leaflet-control-attribution a svg {
-      width: 0;
-      height: 0;
+    .map__info {
+        left:5px;
+		top: 560px;
+        transform:scale(0.9)
     }
-  </style>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-search/dist/leaflet-search.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-search/dist/leaflet-search.min.css" />
-  <script src="geo.js"></script>
+    .map__ts select{
+        height:20px;
+        width:150px;
+        margin-left:10px
+    }
+}
+@media (max-width:767px){
+    .leaflet-control-zoom{
+        position:absolute;
+        top:-5px;
+        left:-5px;
+        transform:scale(.8)
+    }
+	.map__info {
+		top: 460px;
+        left:-20px;
+        transform:scale(0.7);
+		z-index: 10000;
+    }
+}
+    </style>
 </head>
 <body>
-  <div id="map"></div>
-  <input type="checkbox" id="layer1" checked><label for="layer1">03-ос 2024<br></label>
-  <input type="checkbox" id="layer2" checked><label for="layer2">04-ос 2024<br></label>
-  <input type="checkbox" id="layer3" checked><label for="layer3">05-ос 2024<br></label>
-  <input type="checkbox" id="layer4" checked><label for="layer4">07-ос 2024<br></label>
-  <input type="checkbox" id="layer5" checked><label for="layer5">08-ос 2024<br></label>
-  <div>
-    Поиск работает только по первому слову в названии дороги, например, Вельск - Шангалы. Вводим "Вельск" и выпадут все варианты.
-  </div>
-  <script>
-    var map = L.map('map').setView([63.5393, 40.5168], 6); // Архангельская область
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19
-    }).addTo(map);
-
-
-    var layer1 = L.geoJson(geojsonLayer1, {
-      style: { color: 'red', weight: 3.5 },
-      onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.name);
-      }
-    });
-
-    var layer2 = L.geoJson(geojsonLayer2, {
-      style: { color: 'green', weight: 3.5 },
-      onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.name);
-      }
-    });
-
-    var layer3 = L.geoJson(geojsonLayer3, {
-      style: { color: 'black', weight: 3.5 },
-      onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.name);
-      }
-    });
-
-    var layer4 = L.geoJson(geojsonLayer4, {
-      style: { color: 'blue', weight: 3.5 },
-      onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.name);
-      }
-    });
-
-    var layer5 = L.geoJson(geojsonLayer5, {
-      style: { color: 'purple', weight: 3.5 },
-      onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.name);
-      }
-    });
-
-
-    layer1.addTo(map);
-    layer2.addTo(map);
-    layer3.addTo(map);
-    layer4.addTo(map);
-    layer5.addTo(map);
-
-    document.getElementById('layer1').addEventListener('change', function() {
-      if (this.checked) {
-        layer1.addTo(map);
-      } else {
-        map.removeLayer(layer1);
-      }
-    });
-
-    document.getElementById('layer2').addEventListener('change', function() {
-      if (this.checked) {
-        layer2.addTo(map);
-      } else {
-        map.removeLayer(layer2);
-      }
-    });
-
-    document.getElementById('layer3').addEventListener('change', function() {
-      if (this.checked) {
-        layer3.addTo(map);
-      } else {
-        map.removeLayer(layer3);
-      }
-    });
-
-    document.getElementById('layer4').addEventListener('change', function() {
-      if (this.checked) {
-        layer4.addTo(map);
-      } else {
-        map.removeLayer(layer4);
-      }
-    });
-    document.getElementById('layer5').addEventListener('change', function() {
-      if (this.checked) {
-        layer5.addTo(map);
-      } else {
-        map.removeLayer(layer5);
-      }
-    });
-
-    var searchControl = new L.Control.Search({
-      layer: L.layerGroup([layer1, layer2, layer3, layer4, layer5]),
-    
-      propertyName: 'name',
-      marker: false,
-      moveToLocation: function(latlng, title, map) {
-        map.fitBounds(latlng.layer.getBounds());
-        latlng.layer.openPopup();
-      }
-    });
-
-    searchControl.on('search:locationfound', function(e) {
-		
-		//console.log('search:locationfound', );
-
-		//map.removeLayer(this._markerSearch)
-
-		e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
-		if(e.layer._popup)
-			e.layer.openPopup();
-
-	}).on('search:collapsed', function(e) {
-
-		layer1.eachLayer(function(layer) {	//restore feature color
-			layer1.resetStyle(layer);
-		});	
-	});
-
-    map.addControl(searchControl);
-
-
-//
-
-
-
-	
-
-
-
-
-  </script>
+    <div class="wrapper">
+        <div id="map"></div>
+        <main class="page _container">
+            <div class="map__legend">
+                <div>
+                  <input type="checkbox" id="layer1-checkbox" class="red" checked><label for="layer1-checkbox">03-ос 2024<br></label>
+                </div>
+                <div>
+                  <input type="checkbox" id="layer2-checkbox" class="green" checked><label for="layer2-checkbox">04-ос 2024<br></label>
+                </div>
+                <div>
+                  <input type="checkbox" id="layer3-checkbox" class="black" checked><label for="layer3-checkbox">05-ос 2024<br></label>
+                </div>
+                <div>
+                  <input type="checkbox" id="layer4-checkbox" class="blue" checked><label for="layer4-checkbox">07-ос 2024<br></label>
+                </div>
+                <div>
+                  <input type="checkbox" id="layer5-checkbox" class="purple" checked><label for="layer5-checkbox">08-ос 2024<br></label>
+                </div>
+            </div>
+            <div class="mapgps__logo">
+                <img src="https://nvostokov.github.io/popupmap/logo_without.svg" alt="">
+              </div>
+              <div id="search-container">
+                <input type="text" id="search-input" placeholder="Введите название а/д" oninput="searchFeatures()" />
+              <div id="search-results"></div>
+              </div>
+        </main>
+    </div>
+    <script src="script2.js"></script>
 </body>
 </html>
